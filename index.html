@@ -1,0 +1,218 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>然并卵的逐帧动画制作工具v0.01 beta</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div class="container-fluid">
+    <script>document.write('<input type="text" id="filePathDialog" nwdirectory class="hidden" nwworkingdir="'+process.cwd()+'"/>')</script>
+    <div class="start">
+        <div class="well" style="max-width: 400px; margin: 0 auto 10px;">
+            <button type="button" class="btn btn-large btn-block">创建项目@todo</button>
+            <label for="filePathDialog" class="btn btn-large  btn-primary btn-block">打开项目(请点击)</label>
+        </div>
+    </div>
+
+    <div class="row-fluid" style="display:none">
+
+    </div>
+</div>
+<script id="tepl" type="text/html">
+
+    <div class="span8 bs-docs-example">
+        <h2>配置</h2>
+        <div class="form">
+            <div class=" form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="">页数</label>
+                    <div class="controls">
+                        <input type="number" id="pageNum" class="input-mini" id="" value="<%=pageNum%>">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="">背景音乐</label>
+                    <div class="controls">
+                        <input type="file" id="" id="audioSrc" placeholder="">@todo
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="">设计稿尺寸</label>
+                    <div class="controls">
+                        <input id="desingWidth" type="number" class="input-mini" id="" value="<%=desingWidth%>" placeholder="宽">
+                        x <input id="desingHeight" type="number" class="input-mini" id="" value="<%=desingHeight%>" placeholder="高">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="">动画帧数</label>
+                    <div class="controls">
+                        <input id="fps" type="number" max="60" class="input-mini" id="" value="<%=fps%>">
+                    </div>
+                </div>
+                <div class="inner-box">
+                    <ul class="nav nav-tabs">
+                        <% for (var i = 0; i < page.length; i ++) { %>
+                            <li data-nth="<%=i%>" class="<% if (i === startPage) { %>active<%}%>">
+                                <a href="#">第<%=i+1%>页</a>
+                            </li>
+                        <% } %>
+                    </ul>
+                <% for (var i = 0; i < page.length; i ++) { %>
+
+                    <div class="item" style="display:<% if (i === startPage) {%>block<%} else {%>none<%}%>">
+                        <div class="control-group">
+                            <label class="control-label" for="">背景类型</label>
+                            <div class="controls evt-bgtype">
+                                <label class="radio">
+                                    <input type="radio" value="-1" name="bgtype_<%=i%>" name="bgtype_<%=i%>"<% if (page[i].backgroundtype === -1) {%>checked="checked"<%}%> > 纯色
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" value="0" name="bgtype_<%=i%>"<% if (page[i].backgroundtype === 0) {%>checked="checked"<%}%> > 图片 - 平铺
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" value="1" name="bgtype_<%=i%>"<% if (page[i].backgroundtype === 1) {%>checked="checked"<%}%> > 图片 - 拉伸
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group evt-bgtype-img" style="
+                        <% if (page[i].backgroundtype !== -1) {%>
+                            display: block;
+                            <%}else{%>
+                            display: none;
+                        <%}%>">
+                            <label class="control-label" for="">背景图</label>
+                            <div class="controls">
+                                <a href="#" target="_blank"><img class="thumb" id="backgroundimg<%=i%>" src="<%=src + '/img/page' + (i+1) + '/' + page[i].backgroundimg%>"/></a>
+                                <input class="evt-uploadbg" data-nth="<%=i%>" type="file" value="" class="input-small" id="" placeholder="">
+                            </div>
+                        </div>
+                        <div class="control-group evt-bgtype-color" style="
+                        <% if (page[i].backgroundtype === -1) {%>
+                            display: block;
+                            <%}else{%>
+                            display: none;
+                        <%}%>">
+                            <label class="control-label" for="">背景颜色</label>
+                            <div class="controls">
+                                <input type="text" class="input-small" id="colorValue<%=i%>" value="<%=page[i].backgroundimg%>">
+                                <input type="color" class="input-small" id="color<%=i%>" value="<%=page[i].backgroundimg%>" onchange="$('#colorValue<%=i%>').val(this.value)">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="">文字图片</label>
+                            <input type="hidden" id="wordSize0<%=i%>" value="<%=page[i].wordSizeAndPosition[0]%>"/>
+                            <input type="hidden" id="wordSize1<%=i%>" value="<%=page[i].wordSizeAndPosition[1]%>"/>
+                            <div class="controls">
+                                <a href="#"  target="_blank"><img class="thumb" id="wordsrc<%=i%>" src="<%=src + '/img/page' + (i+1) + '/' + page[i].word%>"/></a>
+                                <input type="file" class="input-small evt-uploadword" data-nth="<%=i%>" placeholder="">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="">定位</label>
+                            <div class="controls">
+                                X <input id="wordSize2<%=i%>" type="number" class="input-mini" id="" value="<%=page[i].wordSizeAndPosition[2]%>">
+                                Y <input id="wordSize3<%=i%>" type="number" class="input-mini" id="" value="<%=page[i].wordSizeAndPosition[3]%>">
+                            </div>
+                        </div>
+                        <div class="alert">
+                            <button type="button" class="close" data-dismiss="alert" onclick="$('.alert').hide()">&times;</button>
+                            <strong>提示：</strong>逐帧动画可上传zip包@todo，动画顺序即压缩包顺序，也可一张张上传。动画顺序拖拽调整@todo
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="">逐帧动画</label>
+                            <div class="controls">
+                                <input type="file" data-nth="<%=i%>" class="input-small evt-uploadplay" placeholder="">
+                                <input type="hidden" id="asize0<%=i%>" value="<%=page[i].size[0]%>"/>
+                                <input type="hidden" id="asize1<%=i%>" value="<%=page[i].size[1]%>"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="">定位</label>
+                            <div class="controls">
+                                X <input type="number" id="positionStart<%=i%>" class="input-mini" id="" value="<%=page[i].position[0]%>">
+                                Y <input type="number" id="positionEnd<%=i%>" class="input-mini" id="" value="<%=page[i].position[1]%>">
+
+                                 尺寸 <input type="number" id="size0<%=i%>" class="input-mini" id="" value="<%=page[i].size[0]%>">
+                                x <input type="number" id="size1<%=i%>" class="input-mini" id="" value="<%=page[i].size[1]%>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="">循环播放</label>
+                            <div class="controls">
+                                第 <input type="number" id="playStart<%=i%>" class="input-mini" id="" value="<%=page[i].play[0]%>">
+                                至最后一帧
+                            </div>
+                        </div>
+                        <div class="animate animate<%=i%>">
+                            <ul>
+                                <% for (var j = 1; j <= page[i].play[1]; j ++) {
+                                    var J = j < 10 ? '000' + j : (j < 100 ? ('00' + j) : ('0' + j) );
+                                %>
+                                <li>
+                                    <p><img src="<%= src + '/img/page' + (i+1) + '/motion_'+ J +'.jpg' %>" alt=""/></p>
+                                    <p class="opt">
+                                        <i class="icon-arrow-left"></i>
+                                        <i class="icon-minus-sign"></i>
+                                        <i class="icon-arrow-right"></i>
+                                    </p>
+                                    <p class="ntn-num">第<span><%=j%></span>帧</p>
+                                </li>
+                                <% } %>
+                                <!--
+                                <li>
+                                    <p><img src="img/page1/motion_0001.jpg" alt=""/></p>
+                                    <p class="opt">
+                                        <i class="icon-arrow-left"></i>
+                                        <i class="icon-minus-sign"></i>
+                                        <i class="icon-arrow-right"></i>
+                                    </p>
+                                </li>
+                                -->
+                            </ul>
+                        </div>
+                    </div>
+                    <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="span4">
+    <h2>预览</h2>
+
+    <div class="preview">
+        <iframe id="preview" src="" frameborder="0"></iframe>
+    </div>
+    <div class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="">预览尺寸</label>
+            <div class="controls">
+                <input type="number" class="input-mini" id="" value="320" placeholder="宽">
+                x <input type="number" class="input-mini" value="568" id="" placeholder="高">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="">生成目录</label>
+            <div class="controls">
+                <input id="dest" type="text" class="path span4" value="<%=src%>" id="dest" style="width: 200px;">
+                <label class="btn">修改</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">生成HTML文件@todo</button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script src="lib/zepto.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

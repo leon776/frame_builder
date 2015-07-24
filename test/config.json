@@ -1,0 +1,29 @@
+{
+  "warpId": "app",
+  "pageNum": 2,
+  "audioSrc": "",
+  "desingWidth": 640,
+  "desingHeight": 1136,
+  "fps": 30,
+  "startPage": 0,
+  "page": [
+        {
+          "backgroundimg": "white_bg.jpg",
+          "backgroundtype": 1,
+          "play": [52, 72],
+          "position": [120, 170],
+          "size": [401, 443],
+          "word": "words.png",
+          "wordSizeAndPosition": [453, 256, 90, 730]
+        },
+        {
+          "backgroundimg": "#000000",
+          "backgroundtype": -1,
+          "play": [38, 58],
+          "position": [120, 170],
+          "size": [401, 443],
+          "word": "words.png",
+          "wordSizeAndPosition": [453, 308, 90, 730]
+        }
+    ]
+}

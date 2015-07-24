@@ -1,0 +1,116 @@
+.hidden{
+    visibility: hidden;
+    position: absolute!important;
+    left: -9999em;
+    top: -9999em;
+    z-index: -9999;
+}
+.start{
+    padding-top: 400px;
+}
+/* Base class */
+.bs-docs-example {
+    position: relative;
+    margin: 15px 0;
+    padding: 39px 19px 14px;
+    *padding-top: 19px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+/* Echo out a label for the example */
+.bs-docs-example h2 {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    color: #9da0a4;
+    -webkit-border-radius: 4px 0 4px 0;
+    -moz-border-radius: 4px 0 4px 0;
+    border-radius: 4px 0 4px 0;
+    margin: 0;
+}
+
+h2{
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: normal;
+    text-align: center;
+}
+ul{margin: 0}
+
+.container-fluid{
+}
+.preview h2{text-align: center}
+.preview{
+    width: 320px;
+    padding-left: 30px;
+    height: 568px;
+    margin-bottom: 20px;
+    cursor: hand;
+    cursor: -webkit-grab;
+}
+.preview iframe{
+    width: 100%;
+    height: 100%;
+    cursor: hand;
+    cursor: -webkit-grab;
+}
+input[type="file"] {
+    position: relative;
+    top: 4px;
+    width: 94px;
+}
+.form-horizontal .control-label{
+    width: 75px;
+}
+.form-horizontal .controls{
+    margin-left: 95px;
+}
+.form-horizontal .controls .thumb{width: 24px;
+    height: 24px;}
+.radio{
+    display: inline-block;
+    margin-right: 10px;
+}
+.animate{
+    width: 774px;
+    height: 130px;
+    overflow: auto;
+    display: -webkit-box;
+}
+.animate ul{
+    display: -webkit-box;
+    font-size: 0;
+}
+.animate ul li{
+    position: relative;
+    cursor: move;
+    text-align: center;
+    display: -webkit-box;
+    width: 70px;height:70px}
+.animate ul li p{
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 12px;
+}
+.animate ul li p.opt{
+    width: 48px;
+    height: 20px;}
+.animate ul li p span{
+    display: inline-block;
+    color:#ff0000;
+    font-weight: bold;
+    padding: 0 2px;
+}
+.animate ul li i{
+    cursor: pointer;
+}
+.animate ul li img{width: 90%;height:90%}
